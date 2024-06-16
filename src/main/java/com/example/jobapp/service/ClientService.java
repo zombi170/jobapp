@@ -1,5 +1,6 @@
 package com.example.jobapp.service;
 
+import com.example.jobapp.dto.RegisterClientRequest;
 import com.example.jobapp.model.Client;
 import com.example.jobapp.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,15 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public Client registerClient(String name, String email) {
+    public Client registerClient(RegisterClientRequest request) {
         Client client = new Client();
-        client.setName(name);
-        client.setEmail(email);
+        client.setName(request.getName());
+        client.setEmail(request.getEmail());
         client.setApiKey(UUID.randomUUID());
         return clientRepository.save(client);
+    }
+
+    public boolean authenticateClient(String apiKey) throws IllegalArgumentException {
+        return clientRepository.findByApiKey(UUID.fromString(apiKey)).isPresent();
     }
 }

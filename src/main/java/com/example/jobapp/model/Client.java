@@ -1,9 +1,7 @@
 package com.example.jobapp.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.UUID;
 
 @Entity
@@ -12,15 +10,16 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 100)
     private String name;
 
-    @NotEmpty
+    @NotBlank
     @Email
     @Column(unique = true)
     private String email;
 
+    @NotNull
     @Column(unique = true)
     private UUID apiKey;
 
