@@ -22,7 +22,7 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public boolean authenticateClient(String apiKey) throws IllegalArgumentException {
-        return clientRepository.findByApiKey(UUID.fromString(apiKey)).isPresent();
+    public boolean authenticateClient(UUID apiKey) {
+        return clientRepository.findByApiKey(apiKey).isPresent();
     }
 }
