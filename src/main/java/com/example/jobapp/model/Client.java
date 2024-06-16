@@ -2,7 +2,6 @@ package com.example.jobapp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.UUID;
 
 @Entity
 public class Client {
@@ -21,7 +20,7 @@ public class Client {
 
     @NotNull
     @Column(unique = true)
-    private UUID apiKey;
+    private String apiKey;
 
     public String getName() {
         return name;
@@ -39,11 +38,11 @@ public class Client {
         this.email = email;
     }
 
-    public UUID getApiKey() {
+    public String getApiKey() {
         return apiKey;
     }
 
-    public void setApiKey(UUID apiKey) {
+    public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
     }
 }

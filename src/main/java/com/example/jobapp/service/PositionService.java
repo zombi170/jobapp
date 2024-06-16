@@ -5,6 +5,7 @@ import com.example.jobapp.dto.GetPositionResponse;
 import com.example.jobapp.model.Position;
 import com.example.jobapp.repository.ClientRepository;
 import com.example.jobapp.repository.PositionRepository;
+import com.example.jobapp.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class PositionService {
         Position position = new Position();
         position.setTitle(request.getTitle());
         position.setLocation(request.getLocation());
-        clientRepository.findByApiKey(apiKey).ifPresent(position::setClient);
+        clientRepository.findByApiKey(HashUtil.hashApiKey(apiKey)).ifPresent(position::setClient);
         positionRepository.save(position);
         return new URL("http://localhost:8080/position/" + position.getId());
     }

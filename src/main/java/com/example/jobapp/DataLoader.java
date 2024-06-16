@@ -4,6 +4,7 @@ import com.example.jobapp.model.Client;
 import com.example.jobapp.model.Position;
 import com.example.jobapp.repository.ClientRepository;
 import com.example.jobapp.repository.PositionRepository;
+import com.example.jobapp.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -26,13 +27,13 @@ public class DataLoader implements ApplicationRunner {
         Client client1 = new Client();
         client1.setName("Teszt Elek");
         client1.setEmail("teszt@elek.hu");
-        client1.setApiKey(UUID.randomUUID());
+        client1.setApiKey(HashUtil.hashApiKey(UUID.randomUUID()));
         clientRepository.save(client1);
 
         Client client2 = new Client();
         client2.setName("Gipsz Jakab");
         client2.setEmail("gipsz@jakab.com");
-        client2.setApiKey(UUID.randomUUID());
+        client2.setApiKey(HashUtil.hashApiKey(UUID.randomUUID()));
         clientRepository.save(client2);
 
         Position position1 = new Position();

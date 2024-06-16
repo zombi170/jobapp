@@ -3,6 +3,7 @@ package com.example.jobapp.service;
 import com.example.jobapp.dto.RegisterClientRequest;
 import com.example.jobapp.model.Client;
 import com.example.jobapp.repository.ClientRepository;
+import com.example.jobapp.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,14 @@ public class ClientService {
         Client client = new Client();
         client.setName(request.getName());
         client.setEmail(request.getEmail());
-        client.setApiKey(UUID.randomUUID());
-        return clientRepository.save(client).getApiKey();
+        UUID apiKey = UUID.randomUUID();
+        client.setApiKey(HashUtil.hashApiKey(apiKey));
+        clientRepository.save(client);
+        return apiKey;
     }
 
     public boolean authenticateClient(UUID apiKey) {
-        return clientRepository.findByApiKey(apiKey).isPresent();
+        String hashedApiKey = HashUtil.hashApiKey(apiKey);
+        return clientRepository.findByApiKey(hashedApiKey).isPresent();
     }
 }
