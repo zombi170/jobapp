@@ -6,18 +6,18 @@ import javax.validation.constraints.Size;
 public class CreatePositionRequest {
     @NotBlank
     @Size(max = 50)
-    private String name;
+    private String title;
 
     @NotBlank
     @Size(max = 50)
     private String location;
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLocation() {

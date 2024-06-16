@@ -10,16 +10,19 @@ import java.util.UUID;
 
 @Service
 public class ClientService {
+    private final ClientRepository clientRepository;
 
     @Autowired
-    private ClientRepository clientRepository;
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
-    public Client registerClient(RegisterClientRequest request) {
+    public UUID registerClient(RegisterClientRequest request) {
         Client client = new Client();
         client.setName(request.getName());
         client.setEmail(request.getEmail());
         client.setApiKey(UUID.randomUUID());
-        return clientRepository.save(client);
+        return clientRepository.save(client).getApiKey();
     }
 
     public boolean authenticateClient(UUID apiKey) {

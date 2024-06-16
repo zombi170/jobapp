@@ -10,31 +10,58 @@ import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class PositionService {
+    private final PositionRepository positionRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
-    private PositionRepository positionRepository;
-
-    @Autowired
-    private ClientRepository clientRepository;
+    public PositionService(PositionRepository positionRepository, ClientRepository clientRepository) {
+        this.positionRepository = positionRepository;
+        this.clientRepository = clientRepository;
+    }
 
     public URL createPosition(UUID apiKey, CreatePositionRequest request) throws MalformedURLException {
         Position position = new Position();
-        position.setName(request.getName());
+        position.setTitle(request.getTitle());
         position.setLocation(request.getLocation());
         clientRepository.findByApiKey(apiKey).ifPresent(position::setClient);
         positionRepository.save(position);
         return new URL("http://localhost:8080/position/" + position.getId());
     }
 
+    public List<URL> searchPositions(String keyword, String location) {
+        if (keyword == null) {
+            keyword = "";
+        }
+
+        if (location == null) {
+            location = "";
+        }
+
+        List<Position> positions = positionRepository.searchPositions(keyword, location);
+        return positions.stream()
+                .map(position -> {
+                    try {
+                        return new URL("http://localhost:8080/position/" + position.getId());
+                    } catch (MalformedURLException e) {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
     public GetPositionResponse getPositionById(Long id) throws NoSuchElementException {
         Position position = positionRepository.findById(id).orElseThrow();
         GetPositionResponse response = new GetPositionResponse();
-        response.setName(position.getName());
+        response.setTitle(position.getTitle());
         response.setLocation(position.getLocation());
         return response;
     }
