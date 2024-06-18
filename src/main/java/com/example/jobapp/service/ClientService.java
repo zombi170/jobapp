@@ -1,6 +1,7 @@
 package com.example.jobapp.service;
 
 import com.example.jobapp.dto.RegisterClientRequest;
+import com.example.jobapp.exception.ValidationException;
 import com.example.jobapp.model.Client;
 import com.example.jobapp.repository.ClientRepository;
 import com.example.jobapp.util.HashUtil;
@@ -19,6 +20,10 @@ public class ClientService {
     }
 
     public UUID registerClient(RegisterClientRequest request) {
+        if (clientRepository.existsByEmail(request.getEmail())) {
+            throw new ValidationException("email", "Email is already in use!");
+        }
+
         Client client = new Client();
         client.setName(request.getName());
         client.setEmail(request.getEmail());

@@ -38,7 +38,7 @@ public class PositionController {
             @Valid @RequestBody CreatePositionRequest request) {
 
         if (!clientService.authenticateClient(apiKey)) {
-            throw new UnauthorizedException("Nem megfelelő API kulcs!");
+            throw new UnauthorizedException("Invalid API-Key!");
         }
 
         try {
@@ -56,7 +56,7 @@ public class PositionController {
             @Size(max = 50) @RequestParam(required = false) String location) {
 
         if (!clientService.authenticateClient(apiKey)) {
-            throw new UnauthorizedException("Nem megfelelő API kulcs!");
+            throw new UnauthorizedException("Invalid API-Key!");
         }
 
         List<URL> urls = positionService.searchPositions(keyword, location);
