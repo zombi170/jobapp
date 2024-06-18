@@ -15,7 +15,7 @@ parancsot futtava letöltődnek a szükséges függőségek.
 Az alkalmazáshoz tartozik Swagger UI dokumentáció is, amely a következő URL-en érhető el: 
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
-Az adatbázis a következő URL-en érhető el:
+Az adatbázis a következő URL-en érhető el (Driver class: org.h2.Driver, JDBC url: jdbc:h2:mem:testdb, user: sa, pass: password):
 [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
 
 ## Továbbfejlesztési lehetőségek
@@ -28,3 +28,4 @@ Az adatbázis a következő URL-en érhető el:
 - Skálázhatóság biztosítása megnövekedett terhelés esetén.
 - Hibakezelés javítása és naplózás bevezetése.
 - Rendszeres biztonsági mentések készítése az adatbázisról.
+- Automata tesztek készítése
