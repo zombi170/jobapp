@@ -7,6 +7,7 @@ import com.example.jobapp.model.Position;
 import com.example.jobapp.repository.ClientRepository;
 import com.example.jobapp.repository.PositionRepository;
 import com.example.jobapp.util.HashUtil;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +41,18 @@ class PositionServiceTests {
 
     @BeforeEach
     public void setUp() {
-        positionRepository.deleteAll();
-        clientRepository.deleteAll();
         Client client = new Client();
         client.setName("Teszt Elek");
         client.setEmail("teszt@elek.hu");
         apiKey = UUID.randomUUID();
         client.setApiKey(HashUtil.hashApiKey(apiKey));
         clientRepository.save(client);
+    }
+
+    @AfterEach
+    public void cleanUp() {
+        positionRepository.deleteAll();
+        clientRepository.deleteAll();
     }
 
     @Test

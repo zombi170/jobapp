@@ -4,7 +4,7 @@ import com.example.jobapp.repository.ClientRepository;
 import com.example.jobapp.model.Client;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.StringContains;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,8 +31,8 @@ class ClientControllerTests {
     @Autowired
     private ClientRepository clientRepository;
 
-    @BeforeEach
-    public void setup() {
+    @AfterEach
+    public void cleanUp() {
         clientRepository.deleteAll();
     }
 
