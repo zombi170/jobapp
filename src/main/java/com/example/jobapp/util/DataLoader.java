@@ -1,4 +1,4 @@
-package com.example.jobapp;
+package com.example.jobapp.util;
 
 import com.example.jobapp.model.Client;
 import com.example.jobapp.model.Position;
