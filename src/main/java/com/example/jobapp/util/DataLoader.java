@@ -4,7 +4,6 @@ import com.example.jobapp.model.Client;
 import com.example.jobapp.model.Position;
 import com.example.jobapp.repository.ClientRepository;
 import com.example.jobapp.repository.PositionRepository;
-import com.example.jobapp.util.HashUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
